@@ -242,7 +242,9 @@ class MappingFactory
     {
         if (!empty($mappedClass[static::RELATIONSHIPS_KEY])) {
             foreach ($mappedClass[static::RELATIONSHIPS_KEY] as $propertyName => $urls) {
-                if (false === \in_array($propertyName, static::getClassProperties($className))) {
+                 if ((false === \in_array($propertyName, static::getClassProperties($className)))
+                    && (false === static::hasModelRelation($className, $propertyName))
+                 ) {
                     throw new MappingException(
                         \sprintf(
                             'Could not find property %s in class %s because it does not exist.',
